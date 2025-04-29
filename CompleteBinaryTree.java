@@ -1,27 +1,33 @@
-/* A complete binary tree is always balanced in the height-difference 
-sense — that is, for every node, the difference in height between the left and right subtree is at most 1. */
 public class CompleteBinaryTree {
 
     protected TreeNode root;
 
-    /* Static because TreeNode does not access members of BinaryTree */
+    /**
+     * A static nested class representing a node in the binary tree.
+     * Contains an integer value and references to left and right children.
+     */
     public static class TreeNode {
-        protected Integer element;
+        protected Integer value;
         protected TreeNode left;
         protected TreeNode right;
 
-        public TreeNode(Integer element) {
-            this.element = element;
+        /**
+         * Constructs a TreeNode with a given integer value.
+         * 
+         * @param value the value to store in the node
+         */
+        public TreeNode(Integer value) {
+            this.value = value;
         }
     }
 
     /**
-     * Create a complete binary tree from an array.
-     * Build the tree level by level, starting at the root.
-     * For each array element at index i:
-     * Node element is at i
-     * Left child is at 2*i + 1
-     * Right child is at 2*i + 2
+     * Constructs a complete binary tree from an array of integers.
+     * Nodes are filled in level-order. For a node at index i:
+     * left child is at 2*i + 1, right child is at 2*i + 2.
+     *
+     * @param array array of Integer values to build the tree
+     * @throws InvalidTreeException if any array element is null
      */
     public CompleteBinaryTree(Integer[] array) throws InvalidTreeException {
         if (array == null || array.length == 0) {
@@ -32,26 +38,24 @@ public class CompleteBinaryTree {
     }
 
     /**
-     * Create a complete binary tree from a string containing a space-delimited
-     * sequence of integers.
+     * Recursively constructs a complete binary tree from an array.
+     * The array is assumed to represent a complete binary tree in level-order
+     * traversal.
+     * 
+     * For each index `i` in the array:
+     * - The element at index `i` represents the node.
+     * - The left child of the node is at index `2*i + 1`.
+     * - The right child of the node is at index `2*i + 2`.
+     * 
+     * This method constructs the tree in a level-by-level manner.
+     * 
+     * @param array array of integer values representing the tree in level-order
+     * @param index current index in the array that corresponds to the current node
+     * @return TreeNode at the current index, with left and right children
+     *         recursively constructed
+     * @throws InvalidTreeException if a node value is null or invalid
      */
-    public CompleteBinaryTree(String s) throws InvalidTreeException {
-        String[] tokens = s.trim().split("\\s+");
-        Integer[] values = new Integer[tokens.length];
-
-        for (int i = 0; i < tokens.length; i++) {
-            try {
-                values[i] = Integer.parseInt(tokens[i]);
-            } catch (NumberFormatException e) {
-                throw new InvalidTreeException("Node element must be an integer");
-            }
-        }
-        CompleteBinaryTree t = new CompleteBinaryTree(values);
-        this.root = t.root;
-    }
-
-    /** Helper method to create tree recursively. */
-    private TreeNode makeNode(Integer[] array, int index) throws InvalidTreeException {
+    protected TreeNode makeNode(Integer[] array, int index) throws InvalidTreeException {
         if (index >= array.length) {
             return null;
         }
@@ -66,69 +70,26 @@ public class CompleteBinaryTree {
         return node;
     }
 
-    /** Preorder traversal from the root */
+    /**
+     * Performs a preorder traversal of the tree, printing nodes by depth.
+     */
     public void preorder() {
-        preorder(root, 0);
-        // System.out.println();
+        System.out.print("Preorder: ");
+        preorder(root);
+        System.out.println();
     }
 
-    /** Preorder traversal from a subtree */
-    private void preorder(TreeNode root, int indent) {
+    /**
+     * Recursive helper method for preorder traversal.
+     *
+     * @param root the current subtree root
+     */
+    private void preorder(TreeNode root) {
         if (root == null)
             return;
-        // System.out.print(root.element + " ");
-        System.out.println(" ".repeat(indent) + root.element);
-        preorder(root.left, indent + 4);
-        preorder(root.right, indent + 4);
-    }
-
-    public int height() {
-        return height(root);
-    }
-
-    private int height(TreeNode current) {
-        if (current == null)
-            return -1;
-        return (Math.max(height(current.left), height(current.right)) + 1);
-    }
-
-    public boolean isMaxHeap() {
-        return isMaxHeap(root);
-    }
-
-    private boolean isMaxHeap(TreeNode node) {
-        if (node == null)
-            return true;
-
-        // Check left child
-        if (node.left != null) {
-            if (node.element < node.left.element) {
-                return false;
-            }
-        }
-
-        // Check right child
-        if (node.right != null) {
-            if (node.element > node.right.element) {
-                return false;
-            }
-        }
-
-        // Recursively check left and right subtrees
-        return isMaxHeap(node.left) && isMaxHeap(node.right);
-    }
-
-    public boolean isBinarySearchTree() {
-        return isBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
-    }
-
-    private boolean isBST(TreeNode node, int min, int max) {
-        if (node == null)
-            return true;
-        if (node.element <= min || node.element >= max)
-            return false;
-        return isBST(node.left, min, node.element) &&
-                isBST(node.right, node.element, max);
+        System.out.print(root.value + " ");
+        preorder(root.left);
+        preorder(root.right);
     }
 
 }
