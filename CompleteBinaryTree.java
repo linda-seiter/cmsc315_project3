@@ -26,14 +26,14 @@ public class CompleteBinaryTree {
      * Nodes are filled in level-order. For a node at index i:
      * left child is at 2*i + 1, right child is at 2*i + 2.
      *
-     * @param array array of Integer values to build the tree
+     * @param values array of Integer values to build the tree
      * @throws InvalidTreeException if any array element is null
      */
-    public CompleteBinaryTree(Integer[] array) throws InvalidTreeException {
-        if (array == null || array.length == 0) {
+    public CompleteBinaryTree(Integer[] values) throws InvalidTreeException {
+        if (values == null || values.length == 0) {
             root = null;
         } else {
-            root = makeNode(array, 0);
+            root = makeNode(values, 0);
         }
     }
 
@@ -49,29 +49,31 @@ public class CompleteBinaryTree {
      * 
      * This method constructs the tree in a level-by-level manner.
      * 
-     * @param array array of integer values representing the tree in level-order
-     * @param index current index in the array that corresponds to the current node
+     * @param values array of integer values representing the tree in
+     *               level-order
+     * @param index  current index in the array that corresponds to the
+     *               current node
      * @return TreeNode at the current index, with left and right children
      *         recursively constructed
      * @throws InvalidTreeException if a node value is null or invalid
      */
-    protected TreeNode makeNode(Integer[] array, int index) throws InvalidTreeException {
-        if (index >= array.length) {
+    protected TreeNode makeNode(Integer[] values, int index) throws InvalidTreeException {
+        if (index >= values.length) {
             return null;
         }
-        if (array[index] == null) {
+        if (values[index] == null) {
             throw new InvalidTreeException("Node element must not be null");
         }
 
-        TreeNode node = new TreeNode(array[index]);
-        node.left = makeNode(array, 2 * index + 1);
-        node.right = makeNode(array, 2 * index + 2);
+        TreeNode node = new TreeNode(values[index]);
+        node.left = makeNode(values, 2 * index + 1);
+        node.right = makeNode(values, 2 * index + 2);
 
         return node;
     }
 
     /**
-     * Performs a preorder traversal of the tree, printing nodes by depth.
+     * Performs a preorder traversal of the tree.
      */
     public void preorder() {
         System.out.print("Preorder: ");

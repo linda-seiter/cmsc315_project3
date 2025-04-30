@@ -32,14 +32,14 @@ public class CompleteBinaryTreeSolution {
      * Nodes are filled in level-order. For a node at index i:
      * left child is at 2*i + 1, right child is at 2*i + 2.
      *
-     * @param array array of Integer values to build the tree
+     * @param values array of Integer values to build the tree
      * @throws InvalidTreeException if any array element is null
      */
-    public CompleteBinaryTreeSolution(Integer[] array) throws InvalidTreeException {
-        if (array == null || array.length == 0) {
+    public CompleteBinaryTreeSolution(Integer[] values) throws InvalidTreeException {
+        if (values == null || values.length == 0) {
             root = null;
         } else {
-            root = makeNode(array, 0);
+            root = makeNode(values, 0);
         }
     }
 
@@ -92,23 +92,25 @@ public class CompleteBinaryTreeSolution {
      * 
      * This method constructs the tree in a level-by-level manner.
      * 
-     * @param array array of integer values representing the tree in level-order
-     * @param index current index in the array that corresponds to the current node
+     * @param values array of integer values representing the tree in
+     *               level-order
+     * @param index  current index in the array that corresponds to the
+     *               current node
      * @return TreeNode at the current index, with left and right children
      *         recursively constructed
      * @throws InvalidTreeException if a node value is null or invalid
      */
-    protected TreeNode makeNode(Integer[] array, int index) throws InvalidTreeException {
-        if (index >= array.length) {
+    protected TreeNode makeNode(Integer[] values, int index) throws InvalidTreeException {
+        if (index >= values.length) {
             return null;
         }
-        if (array[index] == null) {
+        if (values[index] == null) {
             throw new InvalidTreeException("Node element must not be null");
         }
 
-        TreeNode node = new TreeNode(array[index]);
-        node.left = makeNode(array, 2 * index + 1);
-        node.right = makeNode(array, 2 * index + 2);
+        TreeNode node = new TreeNode(values[index]);
+        node.left = makeNode(values, 2 * index + 1);
+        node.right = makeNode(values, 2 * index + 2);
 
         return node;
     }
@@ -138,36 +140,6 @@ public class CompleteBinaryTreeSolution {
     }
 
     /**
-     * Returns an ArrayList containing the values of the tree nodes in in-order
-     * traversal, visiting nodes in the following order:
-     * - Left subtree
-     * - Current node
-     * - Right subtree
-     *
-     * @return an ArrayList containing the values of the nodes in in-order traversal
-     */
-    public ArrayList<Integer> inorderList() {
-        return inorderList(root);
-    }
-
-    /**
-     * Helper method to recursively collect the node values in in-order traversal.
-     * The traversal order is left subtree, then current node, then right subtree.
-     *
-     * @param current the current node in the subtree
-     * @return an ArrayList containing the values of the nodes in in-order traversal
-     *         for the current subtree
-     */
-    private ArrayList<Integer> inorderList(TreeNode current) {
-        if (current == null)
-            return new ArrayList<Integer>();
-        ArrayList<Integer> list = inorderList(current.left);
-        list.add(current.value);
-        list.addAll(inorderList(current.right));
-        return list;
-    }
-
-    /**
      * Checks whether the binary tree satisfies the max-heap property.
      *
      * @return true if the tree is a max-heap, false otherwise
@@ -190,7 +162,7 @@ public class CompleteBinaryTreeSolution {
             return false;
         }
 
-        if (node.right != null && node.value > node.right.value) {
+        if (node.right != null && node.value < node.right.value) {
             return false;
         }
 
@@ -234,6 +206,36 @@ public class CompleteBinaryTreeSolution {
         // Recursively check the right subtree with updated min bound
         return isBinarySearchTree(node.left, min, node.value) &&
                 isBinarySearchTree(node.right, node.value, max);
+    }
+
+    /**
+     * Returns an ArrayList containing the values of the tree nodes in in-order
+     * traversal, visiting nodes in the following order:
+     * - Left subtree
+     * - Current node
+     * - Right subtree
+     *
+     * @return an ArrayList containing the values of the nodes in in-order traversal
+     */
+    public ArrayList<Integer> inorderList() {
+        return inorderList(root);
+    }
+
+    /**
+     * Helper method to recursively collect the node values in in-order traversal.
+     * The traversal order is left subtree, then current node, then right subtree.
+     *
+     * @param current the current node in the subtree
+     * @return an ArrayList containing the values of the nodes in in-order traversal
+     *         for the current subtree
+     */
+    private ArrayList<Integer> inorderList(TreeNode current) {
+        if (current == null)
+            return new ArrayList<Integer>();
+        ArrayList<Integer> list = inorderList(current.left);
+        list.add(current.value);
+        list.addAll(inorderList(current.right));
+        return list;
     }
 
 }

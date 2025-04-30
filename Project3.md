@@ -112,7 +112,7 @@ able to create a new Java project and copy the classes into your project.
 
 The `CompleteBinaryTree` class defines one instance variable named `root`, which
 is an instance of the nested class `TreeNode`. Each `TreeNode` stores an integer
-value, along with references to left and right nodes that anchor two two
+value, along with references to left and right nodes that are the roots of two
 subtrees.
 
 The `Main` class contains a `main` method with code to create an instance of
@@ -154,19 +154,24 @@ the creation of the binary tree:
   debugger to **step into** each call to the `makeNode` method. Pay special
   attention to the value of the `index` parameter for each recursive call.
 - Alternatively,
-  <a href="https://pythontutor.com/render.html#code=public%20class%20CompleteBinaryTree%20%7B%0A%0A%20%20%20%20protected%20TreeNode%20root%3B%0A%0A%20%20%20%20public%20static%20class%20TreeNode%20%7B%0A%20%20%20%20%20%20%20%20protected%20Integer%20value%3B%0A%20%20%20%20%20%20%20%20protected%20TreeNode%20left%3B%0A%20%20%20%20%20%20%20%20protected%20TreeNode%20right%3B%0A%0A%20%20%20%20%20%20%20%20public%20TreeNode%28Integer%20value%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20this.value%20%3D%20value%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20public%20CompleteBinaryTree%28Integer%5B%5D%20array%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28array%20%3D%3D%20null%20%7C%7C%20array.length%20%3D%3D%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20root%20%3D%20null%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20root%20%3D%20makeNode%28array,%200%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20protected%20TreeNode%20makeNode%28Integer%5B%5D%20array,%20int%20index%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28index%20%3E%3D%20array.length%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20null%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20if%20%28array%5Bindex%5D%20%3D%3D%20null%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20throw%20new%20RuntimeException%28%22Node%20element%20must%20not%20be%20null%22%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20TreeNode%20node%20%3D%20new%20TreeNode%28array%5Bindex%5D%29%3B%0A%20%20%20%20%20%20%20%20node.left%20%3D%20makeNode%28array,%202%20*%20index%20%2B%201%29%3B%0A%20%20%20%20%20%20%20%20node.right%20%3D%20makeNode%28array,%202%20*%20index%20%2B%202%29%3B%0A%0A%20%20%20%20%20%20%20%20return%20node%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20public%20void%20preorder%28%29%20%7B%0A%20%20%20%20%20%20%20%20preorder%28root%29%3B%0A%20%20%20%20%20%20%20%20System.out.println%28%29%3B%0A%20%20%20%20%7D%0A%0A%0A%20%20%20%20private%20void%20preorder%28TreeNode%20root%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28root%20%3D%3D%20null%29%0A%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20System.out.print%28root.value%20%2B%20%22%20%22%29%3B%0A%20%20%20%20%20%20%20%20preorder%28root.left%29%3B%0A%20%20%20%20%20%20%20%20preorder%28root.right%29%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20public%20static%20void%20main%28String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20Integer%5B%5D%20values%20%3D%20%7B%2090,%2070,%2050,%2020,%2040%20%7D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20CompleteBinaryTree%20tree%20%3D%20new%20CompleteBinaryTree%28values%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tree.preorder%28%29%3B%0A%20%20%20%20%7D%0A%0A%7D&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false">click
+  <a href="https://pythontutor.com/render.html#code=public%20class%20CompleteBinaryTree%20%7B%0A%0A%20%20%20%20protected%20TreeNode%20root%3B%0A%0A%20%20%20%20public%20static%20class%20TreeNode%20%7B%0A%20%20%20%20%20%20%20%20protected%20Integer%20value%3B%0A%20%20%20%20%20%20%20%20protected%20TreeNode%20left%3B%0A%20%20%20%20%20%20%20%20protected%20TreeNode%20right%3B%0A%0A%20%20%20%20%20%20%20%20public%20TreeNode%28Integer%20value%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20this.value%20%3D%20value%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20public%20CompleteBinaryTree%28Integer%5B%5D%20values%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28values%20%3D%3D%20null%20%7C%7C%20values.length%20%3D%3D%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20root%20%3D%20null%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20root%20%3D%20makeNode%28values,%200%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20protected%20TreeNode%20makeNode%28Integer%5B%5D%20values,%20int%20index%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28index%20%3E%3D%20values.length%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20null%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20if%20%28values%5Bindex%5D%20%3D%3D%20null%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20throw%20new%20RuntimeException%28%22Node%20element%20must%20not%20be%20null%22%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20TreeNode%20node%20%3D%20new%20TreeNode%28values%5Bindex%5D%29%3B%0A%20%20%20%20%20%20%20%20node.left%20%3D%20makeNode%28values,%202%20*%20index%20%2B%201%29%3B%0A%20%20%20%20%20%20%20%20node.right%20%3D%20makeNode%28values,%202%20*%20index%20%2B%202%29%3B%0A%0A%20%20%20%20%20%20%20%20return%20node%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20public%20void%20preorder%28%29%20%7B%0A%20%20%20%20%20%20%20%20preorder%28root%29%3B%0A%20%20%20%20%20%20%20%20System.out.println%28%29%3B%0A%20%20%20%20%7D%0A%0A%0A%20%20%20%20private%20void%20preorder%28TreeNode%20root%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28root%20%3D%3D%20null%29%0A%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20System.out.print%28root.value%20%2B%20%22%20%22%29%3B%0A%20%20%20%20%20%20%20%20preorder%28root.left%29%3B%0A%20%20%20%20%20%20%20%20preorder%28root.right%29%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20public%20static%20void%20main%28String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20Integer%5B%5D%20values%20%3D%20%7B%2090,%2070,%2050,%2020,%2040%20%7D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20CompleteBinaryTree%20tree%20%3D%20new%20CompleteBinaryTree%28values%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tree.preorder%28%29%3B%0A%20%20%20%20%7D%0A%0A%7D&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false">click
   this link</a> to use the Python Tutor code visualizer with a slightly adapted
   version of the code. Keep pressing the `Next` button to execute each line of
   code and view the method call stack and object structures.
 
-<img src="images/tree1.png" alt="Binary Tree in nodes" width=300>
+<img src="images/tree1.png" alt="Binary tree nodes in memory" width=300>
 
 NOTE: Python tutor only allows one top-level public class. Other classes must
 either be nested or not declared as public.
 
+## Project #3 Tasks
+
+You will adapt the `CompleteBinaryTree` and `Main` classes as described in the
+following tasks.
+
 ### Task 1. Create a second `CompleteBinaryTree` constructor.
 
-Edit `CompleteBinaryTree` to add a **second constructor** with the following
+Update `CompleteBinaryTree` to add a **second constructor** with the following
 signature:
 
 ```java
@@ -177,11 +182,11 @@ signature:
  * The string must contain valid integer values only, separated by whitespace.
  * These values are parsed and used to build the tree in level-order.
  *
- * @param levelOrderValues a whitespace-delimited string of integer values representing
- *                         nodes in level-order
+ * @param levelOrderValues a whitespace-delimited string of integer values
+ *                         representing nodes in level-order
  * @throws InvalidTreeException if any token in the input is not a valid integer
  */
-public CompleteBinaryTreeSolution(String levelOrderValues) throws InvalidTreeException
+public CompleteBinaryTree(String levelOrderValues) throws InvalidTreeException
 ```
 
 The constructor should create a complete binary tree from the parameter string
@@ -190,19 +195,20 @@ by implementing the following algorithm:
 1.  Remove leading/trailing whitespace and split the parameter string into an
     array of strings, using any sequence of whitespace (spaces, tabs, etc.) as
     the delimiter.
-2.  Create an array of Integer objects from the array of String objects. If a
-    string does not represent a valid integer, throw a custom exception
-    `InvalidTreeException` with an appropriate message such as "Node value must
-    be an integer.".
-3.  Call the other `CompleteBinaryTree` constructor to create a new tree,
-    passing the array of Integer objects as an argument.
-4.  Set the root of `this` tree to the root of the tree created in step 3.
+2.  Create an array of Integer objects from the array of String objects produced
+    in the previous step. If a string does not represent a valid integer, throw
+    a custom exception `InvalidTreeException` with an appropriate message such
+    as "Node value must be an integer.".
+3.  Call the original `CompleteBinaryTree` constructor to create a new tree,
+    passing the array of Integer objects from the previous step as an argument.
+4.  Set the root of `this` tree to the root of the tree created in the previous
+    step.
 
-Next, evolve the `main` method to prompt the user for a string and call the new
-constructor:
+After implementing the new constructor, evolve the `main` method to prompt the
+user for a string and call the new constructor:
 
 ```java
-// Integer[] values = { 53, 28, 83, 11, 61, 67 };
+//Integer[] values = { 90, 70, 50, 20, 40 };
 // CompleteBinaryTree tree = new CompleteBinary(values);
 System.out.print("Enter a binary tree: ");
 String treeString = input.nextLine();
@@ -217,14 +223,17 @@ Enter a binary tree: 90 70 50 20 40
 Preorder: 90 70 20 40 50
 ```
 
-Test your code with invalid input:
+Test your code with invalid input to confirm the exception is thrown and
+handled:
 
 ```text
 Enter a binary tree: 50 30 abc 99
 Node value must be an integer.
 ```
 
-### Task 2. Evolve the `preorder` method to indent based on the node's level in the tree.
+### Task 2. Evolve the `preorder` method to use indentation to reflect the tree structure.
+
+Assume a complete binary tree with the following structure:
 
 ```
        90
@@ -234,8 +243,7 @@ Node value must be an integer.
   20 40 10 25
 ```
 
-Currently, the `preorder` method prints the node values on a single line,
-following a preorder traversal:
+The current `preorder` method prints the node values on a single line:
 
 ```text
 Enter a binary tree: 90 70 50 20 40 10 25
@@ -259,8 +267,8 @@ Preorder:
         25
 ```
 
-To do this, modify the recursive helper method to take a second parameter
-representing the current depth level. Use that value to print 4 spaces per level
+To do this, modify the recursive `preorder` method to take a second parameter
+representing the current node level. Use that value to print 4 spaces per level
 before the node’s value. The root node starts at level 0, its immediate children
 at level 1, and so on.
 
@@ -276,177 +284,289 @@ at level 1, and so on.
 private void preorder(TreeNode root, int level)
 ```
 
+You'll also need to update the initial call to the recursive `preorder` helper
+method in the non-recursive `preorder` method to pass in the root level.
+
+Run the `main` method to confirm your implementation.
+
 ---
 
-### Task 3. Check if a complete binary tree is a binary heap.
+### Task 3. Check if a complete binary tree is a max-heap.
 
-#### Example:
+Edit the `CompleteBinaryTree` class to add a method named `isMaxHeap` that
+checks whether the binary tree satisfies the max-heap property. In a max-heap,
+the value of each parent node must be greater than or equal to the values of its
+children. You may implement additional helper methods as needed.
 
 ```java
-String[] words = {"i", "love", "a", "good", "BOOK", "and", "LOVE", "sad", "BooK", "book"};
-Set<String> stopWords = new HashSet<>(
-   Arrays.asList("the", "is", "in", "at", "of", "and", "a", "to", "it", "or", "was", "so"));
-
-System.out.println(NLPUtility.countFilteredWords(words, stopWords));
-//{book=3, good=1, i=1, love=2, sad=1}
+    /**
+     * Checks whether the binary tree satisfies the max-heap property.
+     *
+     * @return true if the tree is a max-heap, false otherwise
+     */
+    public boolean isMaxHeap()
 ```
 
----
-
-### Task 3. `public static LinkedHashMap<String, Integer> sortByValueDescending(Map<String, Integer> map)`
-
-**Returns a `LinkedHashMap` sorted by frequency in descending order. For ties,
-maintains the original order of keys as they appear in the map.**
-
-Algorithm:
-
-1. Convert the word map entries to a list for sorting
-2. Sort the list of entries in descending order based on value (frequency)
-3. Create a LinkedHashMap and insert the sorted entries to maintain their order.
-
-#### Example:
-
-```java
-Map<String, Integer> wordMap = new TreeMap<>();
-wordMap.put("book", 3);
-wordMap.put("good", 1);
-wordMap.put("i", 1);
-wordMap.put("love", 2);
-wordMap.put("sad", 1);
-
-System.out.println(wordMap); // {book=3, good=1, i=1, love=2, sad=1}
-
-System.out.println(NLPUtility.sortByValueDescending(wordMap)); // {book=3, love=2, good=1, i=1, sad=1}
-```
-
----
-
-### Task 4. `public static String getSentimentFromFrequencies(Map<String, Integer> wordMap, Set<String> positiveWords, Set<String> negativeWords)`
-
-**Sums the total frequencies of words in the corresponding positive and negative
-word sets. Returns a summary string in the format "Positive: X, Negative: Y".**
-
-#### Example:
-
-```java
-Map<String, Integer> wordMap2 = new LinkedHashMap<>();
-wordMap2.put("book", 3);
-wordMap2.put("love", 2); // positive
-wordMap2.put("good", 1); // positive
-wordMap2.put("i", 1);
-wordMap2.put("sad", 1); // negative
-System.out.println(wordMap2); // {book=3, love=2, good=1, i=1, sad=1}
-
-Set<String> positiveWords = new HashSet<>(Arrays.asList("good", "great", "happy", "love", "like"));
-Set<String> negativeWords = new HashSet<>(Arrays.asList("bad", "terrible", "horrible", "sad", "hate"));
-
-System.out.println(NLPUtility.getSentiment(wordMap2, positiveWords, negativeWords));// Positive: 3, Negative: 1
-```
-
----
-
-### Task 5. `public static Map<String, Object> getWordsWithMaxFrequency(Map<String, Integer> wordMap)`
-
-**Returns a map containing an alphabetically sorted list of words that appear
-most frequently in the given word map, along with the corresponding frequency.**
-
-Algorithm:
-
-- Finds the maximum frequency value in the input map
-- Collect a list of all words that occur with that frequency
-- Sorts the list alphabetically
-- Returns a new map with two entries having the following keys:
-  - "words": a list of most frequent words, sorted alphabetically
-  - "frequency": the maximum frequency as an integer
-
-**Note:** The returned map contains two entries with `String` keys: `"words"`
-and `"frequency"`.
-
-- The value associated with `"words"` is a `List<String>` containing the most
-  frequently occurring words.
-- The value for `"frequency"` is an `Integer` representing the highest frequency
-  found.
-
-Because the values are of different types (`List<String>` and `Integer`), the
-method returns a map of type `Map<String, Object>`.
-
-#### Example:
-
-```java
-Map<String, Integer> wordMap3 = new LinkedHashMap<>();
-wordMap3.put("good", 1);
-wordMap3.put("i", 1);
-wordMap3.put("love", 3);
-wordMap3.put("book", 3);
-wordMap3.put("sad", 1);
-System.out.println(wordMap3); // {good=1, i=1, love=3, book=3, sad=1}
-
-System.out.println(NLPUtility.getWordsWithMaxFrequency(wordMap3)); // {words=[book, love], frequency=3}
-
-```
-
-Note that the map passed as a parameter may not be sorted by frequency or word.
-Your method will have to find the maximum frequency, along with all words that
-are mapped to that frequency.
-
----
-
-## 🧪 Sample Program Flow
+Update the `main` method to call `isMaxHeap` and print the result. For example:
 
 ```text
-Enter a paragraph of text:
-I really love a good book, and You REALLY love a sad movie.  We both ReAllY LOVE going for a walk!
+Enter a binary tree: 90 70 50 20 40 10 25
+Preorder:
+90
+    70
+        20
+        40
+    50
+        10
+        25
+Is a max-heap: true
+```
 
-Tokenized:
-[I, really, love, a, good, book, and, You, REALLY, love, a, sad, movie, We, both, ReAllY, LOVE, going, for, a, walk]
+Test with a binary tree that violates the max-heap property — for example, where
+a child node (e.g., 20) is greater than its parent node (e.g., 17).
 
-Word map sorted by key ascending:
-book:1
-both:1
-for:1
-going:1
-good:1
-i:1
-love:3
-movie:1
-really:3
-sad:1
-walk:1
-we:1
-you:1
-
-Word map sorted by value descending:
-love:3
-really:3
-book:1
-both:1
-for:1
-going:1
-good:1
-i:1
-movie:1
-sad:1
-walk:1
-we:1
-you:1
-
-Sentiment: Positive: 4, Negative: 1
-
-Most frequent word(s): [love, really] (used 3 times)
+```text
+Enter a binary tree: 40 35 17 22 19 20
+Preorder:
+40
+    35
+        22
+        19
+    17
+        20
+Is a max-heap: false
 ```
 
 ---
 
-## 🚫 Example: Empty or Non-Meaningful Input
+### Task 4. Check if a complete binary tree is a binary search tree.
+
+Modify the `CompleteBinaryTree` class to include a method named `isBST` that
+determines whether the binary tree satisfies the binary search tree (BST)
+property.
+
+```java
+/**
+ * Checks whether the tree is a valid binary search tree (BST).
+ * A BST is valid if, for every node:
+ * - All nodes in the left subtree are strictly less than the node's value.
+ * - All nodes in the right subtree are strictly greater than the node's value.
+ *
+ * @return true if the tree satisfies BST properties, false otherwise
+ */
+public boolean isBinarySearchTree()
+```
+
+You'll most likely need a helper method that takes a node and validity range:
+
+```java
+/**
+     * Recursive helper method to check BST property using range limits.
+     * At each node, ensures:
+     * - Node's value is strictly greater than the min bound.
+     * - Node's value is strictly less than the max bound.
+     * Recursively checks left and right subtrees with updated bounds.
+     *
+     * @param node current node in the tree
+     * @param min  lower bound (exclusive) for the node's value
+     * @param max  upper bound (exclusive) for the node's value
+     * @return true if the subtree rooted at the current node is a valid BST, false
+     *         otherwise
+     */
+    private boolean isBinarySearchTree(TreeNode node, Integer min, Integer max)
+```
+
+#### Hints
+
+1. **Understand the BST Rule:**  
+   In a valid binary search tree (BST), every node must be greater than all
+   nodes in its left subtree and less than all nodes in its right subtree.
+
+2. **Think Recursively:**  
+   Consider how you can check this condition not just for the current node, but
+   also for all of its descendants.
+
+3. **Pass Down Constraints:**  
+   As you traverse the tree, carry along lower and upper bounds that each node's
+   value must satisfy based on its ancestors.
+
+4. **What Happens at the Leaves?**  
+   Determine what the base case should be when you reach the end of a branch —
+   what does that mean for the validity of the tree?
+
+5. **Avoid Local Comparisons Only:**  
+   Be careful not to only compare a node to its immediate children — that alone
+   isn’t enough to validate the entire tree structure.
+
+Given this sample tree:
 
 ```text
-Enter a paragraph of text:
-SO is.!  It????
+        10
+       /  \
+      5    15
+     / \   / \
+    2   7 12  20
+```
 
-Tokenized:
-[SO, is, It]
+Let's walk through how the bounds are determined for each node.
 
-No valid words found.
+| Node | min  | max  | Explanation                        |
+| ---- | ---- | ---- | ---------------------------------- |
+| 10   | null | null | Root node — no bounds yet          |
+| 5    | null | 10   | Left of 10 → must be < 10          |
+| 2    | null | 5    | Left of 5 → must be < 5            |
+| 7    | 5    | 10   | Right of 5 → must be > 5 and < 10  |
+| 15   | 10   | null | Right of 10 → must be > 10         |
+| 12   | 10   | 15   | Left of 15 → must be > 10 and < 15 |
+| 20   | 15   | null | Right of 15 → must be > 15         |
+
+Modify the `main` method to call the `isBST` method and print the result.
+
+Let's test with a **BST that is not a Max-Heap** and a **Max-Heap that is not a
+BST**, and a tree that is neither a max-heap or a BST:
+
+---
+
+#### **BST (Not a Max-Heap)**
+
+This is a valid Binary Search Tree, but violates the max-heap property because
+`15 > 10` (the root):
+
+```
+        10
+       /  \
+      5    15
+     / \   /
+    2   7 12
+```
+
+Run the program to test this tree:
+
+```text
+Enter a binary tree: 10 5 15 2 7 12
+Preorder:
+10
+    5
+        2
+        7
+    15
+        12
+Is a max-heap: false
+Is a binary search tree: true
+```
+
+---
+
+#### **Max-Heap (Not a BST)**
+
+This is a valid Max-Heap (each parent is ≥ children), but not a BST:
+
+```
+        20
+       /  \
+     18    15
+    /
+   10
+```
+
+Not a BST: 15 is in right subtree of 20
+
+Run the program to test this tree:
+
+```text
+Enter a binary tree: 20 18 15 10
+Preorder:
+20
+    18
+        10
+    15
+Is a max-heap: true
+Is a binary search tree: false
+```
+
+---
+
+### **Not a Max-Heap and Not a BST**
+
+This is neither a max-heap nor a BST.
+
+```text
+        10
+       /  \
+      5    15
+     / \   / \
+    2  12 11 20
+```
+
+It's not a max-heap because nodes 12, 15, and 20 violate the max-heap property
+(they are larger than their parent).
+
+It's not a BST because node 12 is in the left-subtree of node 10 but 12 is not
+less than 10.
+
+Run the program to confirm:
+
+```text
+Enter a binary tree: 10 5 15 2 12 11 20
+Preorder:
+10
+    5
+        2
+        12
+    15
+        11
+        20
+Is a max-heap: false
+Is a binary search tree: false
+```
+
+### Task 5. Create an in-order list of values.
+
+Update `CompleteBinaryTree` to add a method that returns an ArrayList containing
+the values of the tree nodes in in-order traversal. You may implement additional
+recursive helper methods as needed.
+
+```java
+/**
+ * Returns an ArrayList containing the values of the tree nodes in in-order
+ * traversal, visiting nodes in the following order:
+ * - Left subtree
+ * - Current node
+ * - Right subtree
+ *
+ * @return an ArrayList containing the values of the nodes in in-order traversal
+ */
+public ArrayList<Integer> inorderList()
+```
+
+Update the `main` method to call the new method and print the resulting list.
+Notice the in-order traversal produces a sorted list when the tree is a BST, but
+not for a max-heap.
+
+```text
+Enter a binary tree: 10 5 15 2 7 12
+Preorder:
+10
+    5
+        2
+        7
+    15
+        12
+Is a max-heap: false
+Is a binary search tree: true
+Inorder List: [2, 5, 7, 10, 12, 15]
+```
+
+```text
+Enter a binary tree: 20 18 15 10
+Preorder:
+20
+    18
+        10
+    15
+Is a max-heap: true
+Is a binary search tree: false
+Inorder List: [10, 18, 20, 15]
 ```
 
 ## Submitting your solution
@@ -467,10 +587,4 @@ You are to submit two files.
    - A UML class diagram that includes all classes.
    - A test plan that includes test cases that you have created indicating what
      aspects of the program each one is testing.
-     - Conduct unit tests for each method within the `NLPUtility` class. You may
-       want to develop separate test classes (include "Test" in the class name,
-       and/or place in a separate package) to individually call each method in
-       isolation. Include screenshots that capture the result of your unit
-       tests. Ensure your test cases sufficiently demonstrate each method
-       returns a sorted result when sorting is required.
    - A short paragraph on lessons learned from the project.
