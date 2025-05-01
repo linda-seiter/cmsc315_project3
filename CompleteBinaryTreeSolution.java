@@ -53,8 +53,8 @@ public class CompleteBinaryTreeSolution {
      * The string is parsed into integer tokens and used to recursively build the
      * tree starting from index 0 via {@code makeNode}.
      * 
-     * If the input is null or contains only whitespace, the tree remains
-     * uninitialized ({@code root} is null). If any token is not a valid integer, an
+     * If the input is null or contains only whitespace, the tree is considered
+     * empty ({@code root} is null). If any token is not a valid integer, an
      * {@code InvalidTreeException} is thrown.
      * 
      * @param levelOrderValues the level-order representation of the tree as a

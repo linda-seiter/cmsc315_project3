@@ -192,15 +192,15 @@ signature:
  * Constructs a CompleteBinaryTree from a whitespace-separated string of
  * integers representing the tree in level-order.
  *
- * The string is parsed into integer tokens and used to recursively
- * build the tree starting from index 0 via {@code makeNode}.
+ * The string is parsed into integer tokens and used to recursively build the
+ * tree starting from index 0 via {@code makeNode}.
  *
- * If the input is null or contains only whitespace, the tree remains
- * uninitialized ({@code root} is null). If any token is not a valid
- * integer, an {@code InvalidTreeException} is thrown.
+ * If the input is null or contains only whitespace, the tree is considered
+ * empty ({@code root} is null). If any token is not a valid integer, an
+ * {@code InvalidTreeException} is thrown.
  *
- * @param levelOrderValues the level-order representation of the tree
- *                           as a string
+ * @param levelOrderValues the level-order representation of the tree as a
+ *                         string
  * @throws InvalidTreeException if any token is not a valid integer
  */
 public CompleteBinaryTree(String levelOrderValues) throws InvalidTreeException
@@ -224,7 +224,7 @@ user for a string and call the new constructor:
 
 ```java
 //Integer[] values = { 90, 70, 50, 20, 40 };
-// CompleteBinaryTree tree = new CompleteBinary(values);
+// CompleteBinaryTree tree = new CompleteBinaryTree(values);
 System.out.print("Enter a binary tree: ");
 String treeString = input.nextLine();
 CompleteBinaryTree tree = new CompleteBinaryTree(treeString);
@@ -419,7 +419,8 @@ You'll most likely need a helper method that takes a node and validity range:
 
 3. **Pass Down Constraints:**  
    As you traverse the tree, refine lower and upper bounds that each node's
-   value must satisfy based on its ancestors.
+   value must satisfy based on its ancestors. Values in the left subtree must be
+   less than the node's value, and values in the right subtree must be greater.
 
 4. **What Happens at the Leaves?**  
    Determine what the base case should be when you reach the end of a branch.
