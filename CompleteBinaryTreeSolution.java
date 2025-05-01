@@ -28,40 +28,49 @@ public class CompleteBinaryTreeSolution {
     }
 
     /**
-     * Constructs a complete binary tree from an array of integers.
-     * Nodes are filled in level-order. For a node at index i:
-     * left child is at 2*i + 1, right child is at 2*i + 2.
-     *
-     * @param values array of Integer values to build the tree
-     * @throws InvalidTreeException if any array element is null
+     * Constructs a CompleteBinaryTree from an array of Integer values that
+     * represent a complete binary tree in level-order.
+     * 
+     * If the input array is not null and contains elements, it initializes the
+     * root of the tree by calling the recursive method `makeNode`, starting from
+     * index 0.
+     * 
+     * @param values an array of Integer values representing the binary tree
+     *               in level-order
+     * @throws InvalidTreeException if the array contains a null element
+     *                              where a node is expected
      */
     public CompleteBinaryTreeSolution(Integer[] values) throws InvalidTreeException {
-        if (values == null || values.length == 0) {
-            root = null;
-        } else {
+        if (values != null && values.length > 0) {
             root = makeNode(values, 0);
         }
     }
 
     /**
-     * Constructs a complete binary tree from a space-separated string of integers
-     * given in level-order (i.e., top to bottom, left to right).
-     *
-     * The string must contain valid integer values only, separated by whitespace.
-     * These values are parsed and used to build the tree in level-order.
-     *
-     * @param levelOrderValues a whitespace-delimited string of integer values
-     *                         representing nodes in level-order
-     * @throws InvalidTreeException if any token in the input is not a valid integer
+     * Constructs a CompleteBinaryTree from a whitespace-separated string of
+     * integers representing the tree in level-order.
+     * 
+     * The string is parsed into integer tokens and used to recursively build the
+     * tree starting from index 0 via {@code makeNode}.
+     * 
+     * If the input is null or contains only whitespace, the tree remains
+     * uninitialized ({@code root} is null). If any token is not a valid integer, an
+     * {@code InvalidTreeException} is thrown.
+     * 
+     * @param levelOrderValues the level-order representation of the tree as a
+     *                         string
+     * @throws InvalidTreeException if any token is not a valid integer
      */
     public CompleteBinaryTreeSolution(String levelOrderValues) throws InvalidTreeException {
-        // Remove leading/trailing whitespace and split the string into tokens,
-        // using any sequence of whitespace (spaces, tabs, etc.) as the delimiter
+        // Skip if input is null or contains only whitespace
+        if (levelOrderValues == null || levelOrderValues.trim().isEmpty())
+            return;
+
+        // Split the trimmed string into tokens using whitespace as delimiter
         String[] tokens = levelOrderValues.trim().split("\\s+");
 
         // Convert tokens to an array of Integer objects
         Integer[] values = new Integer[tokens.length];
-
         for (int i = 0; i < tokens.length; i++) {
             try {
                 // Parse each token as an integer
@@ -72,12 +81,8 @@ public class CompleteBinaryTreeSolution {
             }
         }
 
-        // Use the parsed values to construct the complete binary tree
-        // by delegating to another constructor that builds from Integer[]
-        CompleteBinaryTreeSolution t = new CompleteBinaryTreeSolution(values);
-
-        // Set the root of this tree to the root of the newly created tree
-        this.root = t.root;
+        // Construct the tree from the values
+        root = makeNode(values, 0);
     }
 
     /**

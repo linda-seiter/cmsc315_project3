@@ -104,11 +104,23 @@ not just its direct children.
 | Binary Heap (Max)    | Complete                            | Parent ≥ children     |
 | Binary Search Tree   | Any                                 | Left < Parent < Right |
 
+What about an empty binary tree, i.e., a tree with 0 nodes?
+
+An empty binary tree is considered a valid binary search tree as well as a valid
+max-heap. That's because the rules for both structures apply to each node in the
+tree — and in the case of an empty tree, there simply aren't any nodes to
+violate the rules!
+
 ### Starter Code Info
 
 Download project3_starter.zip and extract the files. The zip contains three
 classes, `Main`, `CompleteBinaryTree`, and `InvalidTreeException`. You should be
 able to create a new Java project and copy the classes into your project.
+
+A complete binary tree can be efficiently represented using an array, which is
+why heaps are typically implemented this way. However, in this project, you'll
+implement the tree using a recursive data structure to gain practice with
+recursion.
 
 The `CompleteBinaryTree` class defines one instance variable named `root`, which
 is an instance of the nested class `TreeNode`. Each `TreeNode` stores an integer
@@ -154,10 +166,11 @@ the creation of the binary tree:
   debugger to **step into** each call to the `makeNode` method. Pay special
   attention to the value of the `index` parameter for each recursive call.
 - Alternatively,
-  <a href="https://pythontutor.com/render.html#code=public%20class%20CompleteBinaryTree%20%7B%0A%0A%20%20%20%20protected%20TreeNode%20root%3B%0A%0A%20%20%20%20public%20static%20class%20TreeNode%20%7B%0A%20%20%20%20%20%20%20%20protected%20Integer%20value%3B%0A%20%20%20%20%20%20%20%20protected%20TreeNode%20left%3B%0A%20%20%20%20%20%20%20%20protected%20TreeNode%20right%3B%0A%0A%20%20%20%20%20%20%20%20public%20TreeNode%28Integer%20value%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20this.value%20%3D%20value%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20public%20CompleteBinaryTree%28Integer%5B%5D%20values%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28values%20%3D%3D%20null%20%7C%7C%20values.length%20%3D%3D%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20root%20%3D%20null%3B%0A%20%20%20%20%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20root%20%3D%20makeNode%28values,%200%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20protected%20TreeNode%20makeNode%28Integer%5B%5D%20values,%20int%20index%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28index%20%3E%3D%20values.length%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20null%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20if%20%28values%5Bindex%5D%20%3D%3D%20null%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20throw%20new%20RuntimeException%28%22Node%20element%20must%20not%20be%20null%22%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20TreeNode%20node%20%3D%20new%20TreeNode%28values%5Bindex%5D%29%3B%0A%20%20%20%20%20%20%20%20node.left%20%3D%20makeNode%28values,%202%20*%20index%20%2B%201%29%3B%0A%20%20%20%20%20%20%20%20node.right%20%3D%20makeNode%28values,%202%20*%20index%20%2B%202%29%3B%0A%0A%20%20%20%20%20%20%20%20return%20node%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20public%20void%20preorder%28%29%20%7B%0A%20%20%20%20%20%20%20%20preorder%28root%29%3B%0A%20%20%20%20%20%20%20%20System.out.println%28%29%3B%0A%20%20%20%20%7D%0A%0A%0A%20%20%20%20private%20void%20preorder%28TreeNode%20root%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28root%20%3D%3D%20null%29%0A%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20System.out.print%28root.value%20%2B%20%22%20%22%29%3B%0A%20%20%20%20%20%20%20%20preorder%28root.left%29%3B%0A%20%20%20%20%20%20%20%20preorder%28root.right%29%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20public%20static%20void%20main%28String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20Integer%5B%5D%20values%20%3D%20%7B%2090,%2070,%2050,%2020,%2040%20%7D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20CompleteBinaryTree%20tree%20%3D%20new%20CompleteBinaryTree%28values%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tree.preorder%28%29%3B%0A%20%20%20%20%7D%0A%0A%7D&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false">click
+  <a href="https://pythontutor.com/render.html#code=public%20class%20CompleteBinaryTree%20%7B%0A%0A%20%20%20%20protected%20TreeNode%20root%3B%0A%0A%20%20%20%20public%20static%20class%20TreeNode%20%7B%0A%20%20%20%20%20%20%20%20protected%20Integer%20value%3B%0A%20%20%20%20%20%20%20%20protected%20TreeNode%20left%3B%0A%20%20%20%20%20%20%20%20protected%20TreeNode%20right%3B%0A%0A%20%20%20%20%20%20%20%20public%20TreeNode%28Integer%20value%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20this.value%20%3D%20value%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20public%20CompleteBinaryTree%28Integer%5B%5D%20values%29%20throws%20RuntimeException%20%7B%0A%20%20%20%20%20%20%20%20if%20%28values%20!%3D%20null%20%26%26%20values.length%20%3E%200%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20root%20%3D%20makeNode%28values,%200%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%0A%20%20%20%20protected%20TreeNode%20makeNode%28Integer%5B%5D%20values,%20int%20index%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28index%20%3E%3D%20values.length%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20return%20null%3B%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20if%20%28values%5Bindex%5D%20%3D%3D%20null%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20throw%20new%20RuntimeException%28%22Node%20element%20must%20not%20be%20null%22%29%3B%0A%20%20%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20%20%20TreeNode%20node%20%3D%20new%20TreeNode%28values%5Bindex%5D%29%3B%0A%20%20%20%20%20%20%20%20node.left%20%3D%20makeNode%28values,%202%20*%20index%20%2B%201%29%3B%0A%20%20%20%20%20%20%20%20node.right%20%3D%20makeNode%28values,%202%20*%20index%20%2B%202%29%3B%0A%0A%20%20%20%20%20%20%20%20return%20node%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20public%20void%20preorder%28%29%20%7B%0A%20%20%20%20%20%20%20%20preorder%28root%29%3B%0A%20%20%20%20%20%20%20%20System.out.println%28%29%3B%0A%20%20%20%20%7D%0A%0A%0A%20%20%20%20private%20void%20preorder%28TreeNode%20root%29%20%7B%0A%20%20%20%20%20%20%20%20if%20%28root%20%3D%3D%20null%29%0A%20%20%20%20%20%20%20%20%20%20%20%20return%3B%0A%20%20%20%20%20%20%20%20System.out.print%28root.value%20%2B%20%22%20%22%29%3B%0A%20%20%20%20%20%20%20%20preorder%28root.left%29%3B%0A%20%20%20%20%20%20%20%20preorder%28root.right%29%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20public%20static%20void%20main%28String%5B%5D%20args%29%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20Integer%5B%5D%20values%20%3D%20%7B%2090,%2070,%2050,%2020,%2040%20%7D%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20CompleteBinaryTree%20tree%20%3D%20new%20CompleteBinaryTree%28values%29%3B%0A%20%20%20%20%20%20%20%20%20%20%20%20tree.preorder%28%29%3B%0A%20%20%20%20%7D%0A%0A%7D&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=java&rawInputLstJSON=%5B%5D&textReferences=false">click
   this link</a> to use the Python Tutor code visualizer with a slightly adapted
-  version of the code. Keep pressing the `Next` button to execute each line of
-  code and view the method call stack and object structures.
+  version of the code (a RuntimeException is thrown to reduce the code size).
+  Keep pressing the `Next` button to execute each line of code and view the
+  method call stack and object structures.
 
 <img src="images/tree1.png" alt="Binary tree nodes in memory" width=300>
 
@@ -176,33 +189,35 @@ signature:
 
 ```java
 /**
- * Constructs a complete binary tree from a space-separated string of integers
- * given in level-order (i.e., top to bottom, left to right).
+ * Constructs a CompleteBinaryTree from a whitespace-separated string of
+ * integers representing the tree in level-order.
  *
- * The string must contain valid integer values only, separated by whitespace.
- * These values are parsed and used to build the tree in level-order.
+ * The string is parsed into integer tokens and used to recursively
+ * build the tree starting from index 0 via {@code makeNode}.
  *
- * @param levelOrderValues a whitespace-delimited string of integer values
- *                         representing nodes in level-order
- * @throws InvalidTreeException if any token in the input is not a valid integer
+ * If the input is null or contains only whitespace, the tree remains
+ * uninitialized ({@code root} is null). If any token is not a valid
+ * integer, an {@code InvalidTreeException} is thrown.
+ *
+ * @param levelOrderValues the level-order representation of the tree
+ *                           as a string
+ * @throws InvalidTreeException if any token is not a valid integer
  */
 public CompleteBinaryTree(String levelOrderValues) throws InvalidTreeException
 ```
 
-The constructor should create a complete binary tree from the parameter string
-by implementing the following algorithm:
+The constructor should create a complete binary tree from the parameter string:
 
-1.  Remove leading/trailing whitespace and split the parameter string into an
-    array of strings, using any sequence of whitespace (spaces, tabs, etc.) as
-    the delimiter.
-2.  Create an array of Integer objects from the array of String objects produced
-    in the previous step. If a string does not represent a valid integer, throw
-    a custom exception `InvalidTreeException` with an appropriate message such
-    as "Node value must be an integer.".
-3.  Call the original `CompleteBinaryTree` constructor to create a new tree,
-    passing the array of Integer objects from the previous step as an argument.
-4.  Set the root of `this` tree to the root of the tree created in the previous
-    step.
+1. **Check Input Validity**: If the input string is null or contains only
+   whitespace, simply return to keep the tree empty (root is null).
+2. **Trim and Split**: Trim the string to remove leading and trailing
+   whitespace, then split the string into tokens using whitespace as the
+   delimiter. A sequence of whitespace should be treated as a single delimiter.
+3. **Parse Tokens**: Convert each token into an integer. If any token is not a
+   valid integer, throw an `InvalidTreeException` with an appropriate message.
+   This step should produce an Integer array.
+4. **Initialize the Tree**: Use the parsed integers to recursively build the
+   tree by calling the `makeNode` method, starting from index 0.
 
 After implementing the new constructor, evolve the `main` method to prompt the
 user for a string and call the new constructor:
@@ -229,6 +244,14 @@ handled:
 ```text
 Enter a binary tree: 50 30 abc 99
 Node value must be an integer.
+```
+
+Test your code with empty input or input containing just whitespace. No
+exception should be thrown and preorder is called on the empty tree.
+
+```text
+Enter a binary tree:
+Preorder:
 ```
 
 ### Task 2. Evolve the `preorder` method to use indentation to reflect the tree structure.
@@ -285,7 +308,7 @@ private void preorder(TreeNode root, int level)
 ```
 
 You'll also need to update the initial call to the recursive `preorder` helper
-method in the non-recursive `preorder` method to pass in the root level.
+method in the non-recursive `preorder` method to pass in the root level of 0.
 
 Run the `main` method to confirm your implementation.
 
@@ -335,6 +358,14 @@ Preorder:
     17
         20
 Is a max-heap: false
+```
+
+Test with an empty tree.
+
+```text
+Enter a binary tree:
+Preorder:
+Is a max-heap: true
 ```
 
 ---
@@ -387,7 +418,7 @@ You'll most likely need a helper method that takes a node and validity range:
    also for all of its descendants.
 
 3. **Pass Down Constraints:**  
-   As you traverse the tree, carry along lower and upper bounds that each node's
+   As you traverse the tree, refine lower and upper bounds that each node's
    value must satisfy based on its ancestors.
 
 4. **What Happens at the Leaves?**  
@@ -408,7 +439,10 @@ Given this sample tree:
     2   7 12  20
 ```
 
-Let's walk through how the bounds are determined for each node.
+Let's walk through how the value bounds are determined for each node during BST
+validation. A `null` bound indicates no constraint on that side of the range.
+When we say a node is "left of" or "right of" another, we mean it appears in
+that node’s left or right subtree.
 
 | Node | min  | max  | Explanation                        |
 | ---- | ---- | ---- | ---------------------------------- |
@@ -423,7 +457,8 @@ Let's walk through how the bounds are determined for each node.
 Modify the `main` method to call the `isBST` method and print the result.
 
 Let's test with a **BST that is not a Max-Heap** and a **Max-Heap that is not a
-BST**, and a tree that is neither a max-heap or a BST:
+BST**, a tree that is neither a max-heap nor a BST, an empty tree, and a tree
+with a single node.
 
 ---
 
@@ -518,6 +553,29 @@ Preorder:
         20
 Is a max-heap: false
 Is a binary search tree: false
+```
+
+### **Empty Tree**
+
+An empty tree is both a max-heap and a BST.
+
+```text
+Enter a binary tree:
+Preorder:
+Is a max-heap: true
+Is a binary search tree: true
+```
+
+### **Single Node**
+
+A tree with a single node is both a max-heap and a BST.
+
+```text
+Enter a binary tree: 6
+Preorder:
+6
+Is a max-heap: true
+Is a binary search tree: true
 ```
 
 ### Task 5. Create an in-order list of values.

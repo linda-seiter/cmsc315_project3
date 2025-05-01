@@ -22,17 +22,20 @@ public class CompleteBinaryTree {
     }
 
     /**
-     * Constructs a complete binary tree from an array of integers.
-     * Nodes are filled in level-order. For a node at index i:
-     * left child is at 2*i + 1, right child is at 2*i + 2.
-     *
-     * @param values array of Integer values to build the tree
-     * @throws InvalidTreeException if any array element is null
+     * Constructs a CompleteBinaryTree from an array of Integer values that
+     * represent a complete binary tree in level-order.
+     * 
+     * If the input array is not null and contains elements, it initializes the
+     * root of the tree by calling the recursive method `makeNode`, starting from
+     * index 0.
+     * 
+     * @param values an array of Integer values representing the binary tree
+     *               in level-order
+     * @throws InvalidTreeException if the array contains a null element
+     *                              where a node is expected
      */
     public CompleteBinaryTree(Integer[] values) throws InvalidTreeException {
-        if (values == null || values.length == 0) {
-            root = null;
-        } else {
+        if (values != null && values.length > 0) {
             root = makeNode(values, 0);
         }
     }
