@@ -422,11 +422,10 @@ You'll most likely need a helper method that takes a node and validity range:
    value must satisfy based on its ancestors.
 
 4. **What Happens at the Leaves?**  
-   Determine what the base case should be when you reach the end of a branch —
-   what does that mean for the validity of the tree?
+   Determine what the base case should be when you reach the end of a branch.
 
 5. **Avoid Local Comparisons Only:**  
-   Be careful not to only compare a node to its immediate children — that alone
+   Be careful not to only compare a node to its immediate children as that alone
    isn’t enough to validate the entire tree structure.
 
 Given this sample tree:
