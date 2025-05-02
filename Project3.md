@@ -308,7 +308,7 @@ private void preorder(TreeNode root, int level)
 ```
 
 You'll also need to update the initial call to the recursive `preorder` helper
-method in the non-recursive `preorder` method to pass in the root level of 0.
+method in the non-recursive `preorder` method.
 
 Run the `main` method to confirm your implementation.
 
@@ -322,12 +322,12 @@ the value of each parent node must be greater than or equal to the values of its
 children. You may implement additional helper methods as needed.
 
 ```java
-    /**
-     * Checks whether the binary tree satisfies the max-heap property.
-     *
-     * @return true if the tree is a max-heap, false otherwise
-     */
-    public boolean isMaxHeap()
+/**
+ * Checks whether the binary tree satisfies the max-heap property.
+ *
+ * @return true if the tree is a max-heap, false otherwise
+ */
+public boolean isMaxHeap()
 ```
 
 Update the `main` method to call `isMaxHeap` and print the result. For example:
@@ -372,9 +372,9 @@ Is a max-heap: true
 
 ### Task 4. Check if a complete binary tree is a binary search tree.
 
-Modify the `CompleteBinaryTree` class to include a method named `isBST` that
-determines whether the binary tree satisfies the binary search tree (BST)
-property.
+Modify the `CompleteBinaryTree` class to include a method named
+`isBinarySearchTree` that determines whether the binary tree satisfies the
+binary search tree (BST) property.
 
 ```java
 /**
@@ -392,19 +392,19 @@ You'll most likely need a helper method that takes a node and validity range:
 
 ```java
 /**
-     * Recursive helper method to check BST property using range limits.
-     * At each node, ensures:
-     * - Node's value is strictly greater than the min bound.
-     * - Node's value is strictly less than the max bound.
-     * Recursively checks left and right subtrees with updated bounds.
-     *
-     * @param node current node in the tree
-     * @param min  lower bound (exclusive) for the node's value
-     * @param max  upper bound (exclusive) for the node's value
-     * @return true if the subtree rooted at the current node is a valid BST, false
-     *         otherwise
-     */
-    private boolean isBinarySearchTree(TreeNode node, Integer min, Integer max)
+ * Recursive helper method to check BST property using range limits.
+ * At each node, ensures:
+ * - Node's value is strictly greater than the min bound.
+ * - Node's value is strictly less than the max bound.
+ * Recursively checks left and right subtrees with updated bounds.
+ *
+ * @param node current node in the tree
+ * @param min  lower bound (exclusive) for the node's value
+ * @param max  upper bound (exclusive) for the node's value
+ * @return true if the subtree rooted at the current node is a valid BST, false
+ *         otherwise
+ */
+private boolean isBinarySearchTree(TreeNode node, Integer min, Integer max)
 ```
 
 #### Hints
@@ -454,11 +454,12 @@ that node’s left or right subtree.
 | 12   | 10   | 15   | Left of 15 → must be > 10 and < 15 |
 | 20   | 15   | null | Right of 15 → must be > 15         |
 
-Modify the `main` method to call the `isBST` method and print the result.
+Modify the `main` method to call the `isBinarySearchTree` method and print the
+result.
 
-Let's test with a **BST that is not a Max-Heap** and a **Max-Heap that is not a
-BST**, a tree that is neither a max-heap nor a BST, an empty tree, and a tree
-with a single node.
+Let's test with a BST that is not a Max-Heap, a Max-Heap that is not a BST, a
+tree that is neither a max-heap nor a BST, an empty tree, and a tree with a
+single node.
 
 ---
 
